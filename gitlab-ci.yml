@@ -1,0 +1,20 @@
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+
+cache:
+  paths:
+    - /root/.m2/repository/
+
+test:
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS test
+
+  # Since we require Maven for this job, we can restrict the job to runners with a certain tag. Of course, we need to configure a runner with the tag maven with a maven installation
+  tags:
+    - maven
+
+  script:
+    - echo "Building project with maven"
+    - mvn clean install
