@@ -1,1 +1,2 @@
 # IS_TRACK_REGRESSION_SUITE
+test 1..2...3
